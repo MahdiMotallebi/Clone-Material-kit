@@ -1,7 +1,14 @@
 import * as React from 'react';
 
 //Mui
-import { Box, Button, Modal, Stack, TextField } from '@mui/material';
+import {
+  Box,
+  Button,
+  Modal,
+  Stack,
+  TextField,
+  Typography
+} from '@mui/material';
 import { Post, useGlobalContext } from '../context';
 import axios from '../utils/axiosinstance';
 
@@ -10,7 +17,10 @@ const style = {
   top: '50%',
   left: '50%',
   transform: 'translate(-50%, -50%)',
-  width: '40%',
+  width: {
+    xs: '90%',
+    md: '60%'
+  },
   borderRadius: '1rem',
   bgcolor: 'background.paper',
   p: 4
@@ -46,6 +56,15 @@ const UpdatePost = () => {
     <div>
       <Modal open={state.showModal} onClose={handleCloseModal}>
         <Box sx={style}>
+          <Typography
+            variant="h5"
+            component="h5"
+            mb={5}
+            sx={{ textTransform: 'capitalize', fontWeight: '700' }}
+          >
+            update post
+          </Typography>
+
           <Stack spacing={3}>
             <TextField
               name="title"
