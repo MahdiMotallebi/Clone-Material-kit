@@ -36,6 +36,7 @@ import Dashboard from '../dashboard';
 import Login from '../login';
 import Products from '../products';
 import User from '../user';
+import Home from '../home';
 
 const drawerWidth = '240px';
 
@@ -252,6 +253,7 @@ const SidebarLeft = () => {
         </AppBar>
         <Box p={5}>
           <Routes>
+            <Route path="/" element={<Home />} />
             <Route path="/user" element={<User />} />
             <Route path="/products" element={<Products />} />
             <Route path="/login" element={<Login />} />

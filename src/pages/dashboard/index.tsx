@@ -11,10 +11,12 @@ import { Post, useGlobalContext } from '../../context';
 import UpdatePost from '../../components/modal';
 const Dashboard = () => {
   const { state, handleState } = useGlobalContext();
+
   React.useEffect(() => {
     const fetchPosts = async () => {
       const res = await axios('/posts');
       const allPosts: Post[] = await res.data;
+
       const tempState = { ...state, posts: allPosts };
       handleState(tempState);
     };
@@ -113,7 +115,7 @@ const Dashboard = () => {
       elevation={0}
       sx={{
         height: '95vh',
-
+        position: 'relative',
         border: `1px solid ${
           theme.palette.mode === 'light'
             ? theme.palette.border.main
