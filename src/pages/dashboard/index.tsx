@@ -46,7 +46,7 @@ const Dashboard = () => {
     {
       field: '#',
       headerName: '#',
-      flex: 0.1,
+      width: 90,
       renderCell: (params: GridRenderCellParams<string>) => {
         return (
           <Box
@@ -65,31 +65,23 @@ const Dashboard = () => {
     {
       field: 'title',
       headerName: 'Title',
-      flex: 0.5,
+      width: 200,
       renderCell: (params: GridRenderCellParams<string>) => {
-        return (
-          <Box sx={{ display: 'flex', alignItems: 'center' }}>
-            {params.row.title.slice(0, 20).concat('...')}
-          </Box>
-        );
+        return <Box>{params.row.title.slice(0, 20).concat('...')}</Box>;
       }
     },
     {
       field: 'body',
       headerName: 'Body',
-      flex: 1,
+      width: 500,
       renderCell: (params: GridRenderCellParams<string>) => {
-        return (
-          <Box sx={{ display: 'flex', alignItems: 'center' }}>
-            {params.row.body.slice(0, 70).concat('...')}
-          </Box>
-        );
+        return <Box>{params.row.body.slice(0, 70).concat('...')}</Box>;
       }
     },
     {
       field: 'action',
       headerName: '',
-      flex: 0.3,
+      width: 200,
       renderCell: (params: GridRenderCellParams<string>) => {
         return (
           <Box sx={{ display: 'flex', alignItems: 'center' }}>
@@ -121,6 +113,7 @@ const Dashboard = () => {
       elevation={0}
       sx={{
         height: '95vh',
+
         border: `1px solid ${
           theme.palette.mode === 'light'
             ? theme.palette.border.main
@@ -155,7 +148,7 @@ const Dashboard = () => {
           }`
         },
         '& .MuiDataGrid-virtualScroller': {
-          //   backgroundColor: colors.primary[400]
+          // backgroundColor: colors.primary[400]
         },
         '& .MuiDataGrid-footerContainer': {
           borderTop: `1px solid ${
@@ -172,7 +165,6 @@ const Dashboard = () => {
       <DataGrid
         disableSelectionOnClick
         rows={state.posts !== undefined ? state.posts : []}
-        // rows={posts}
         columns={columns}
       />
     </Paper>
