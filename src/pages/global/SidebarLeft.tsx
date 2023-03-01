@@ -1,57 +1,115 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
+import { Link, Route, Routes } from 'react-router-dom';
+
 //MUI
 import {
   Box,
   IconButton,
-  Typography,
   List,
-  ListItem,
   ListItemButton,
-  ListItemIcon,
   ListItemText,
-  Drawer
+  Drawer,
+  AppBar,
+  Container,
+  Toolbar,
+  Tooltip,
+  Avatar,
+  Menu,
+  MenuItem,
+  Typography
 } from '@mui/material';
 
 //icons
-import { BsFillPersonFill, BsList, BsFillBarChartFill } from 'react-icons/bs';
+import {
+  BsFillPersonFill,
+  BsList,
+  BsFillBarChartFill,
+  BsPersonPlusFill,
+  BsBasket3Fill
+} from 'react-icons/bs';
+
+//components
 import Dashboard from '../dashboard';
+import Login from '../login';
+import { useGlobalContext } from '../../context';
+import Home from '../user';
+import Products from '../products';
+import User from '../user';
 
 const drawerWidth = '240px';
+
 const SidebarLeft = () => {
+  const navigate = useNavigate();
+  const { state } = useGlobalContext();
   const [mobileOpen, setMobileOpen] = React.useState<boolean>(false);
+
+  const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(
+    null
+  );
+
+  const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorElUser(event.currentTarget);
+  };
+
+  const handleCloseUserMenu = () => {
+    setAnchorElUser(null);
+  };
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
 
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    handleCloseUserMenu();
+    navigate('/login');
+  };
+
+  const menu = [
+    { text: 'Dashboard', icon: <BsFillBarChartFill />, path: '/dashboard' },
+    { text: 'User', icon: <BsFillPersonFill />, path: '/user' },
+    { text: 'Products', icon: <BsBasket3Fill />, path: '/products' },
+    { text: 'Login', icon: <BsPersonPlusFill />, path: '/login' }
+  ];
+
   const drawer = (
-    <List>
-      <ListItem>
-        <ListItemButton>
-          <ListItemIcon>
-            <BsFillBarChartFill />
-          </ListItemIcon>
-          <ListItemText primary="dashboard" />
-        </ListItemButton>
-      </ListItem>
-      <ListItem>
-        <ListItemButton>
-          <ListItemIcon>
-            <BsFillPersonFill />
-          </ListItemIcon>
-          <ListItemText primary="user" />
-        </ListItemButton>
-      </ListItem>
+    <List sx={{ padding: '1rem' }}>
+      {menu.map(({ text, icon, path }) => {
+        if (
+          (text === 'Dashboard' && !localStorage.getItem('token')) ||
+          (text === 'Login' && localStorage.getItem('token'))
+        ) {
+          return null;
+        } else {
+          return (
+            <>
+              <Link to={path} style={{ color: 'grey', textDecoration: 'none' }}>
+                <ListItemButton
+                  sx={{
+                    display: 'flex',
+                    gap: '1rem',
+                    borderRadius: '.5rem'
+                  }}
+                >
+                  {icon}
+                  <ListItemText primary={text} />
+                </ListItemButton>
+              </Link>
+            </>
+          );
+        }
+      })}
     </List>
   );
 
   return (
-    <Box display="flex">
+    <Box display="flex" justifyContent="center" alignItems="center">
       <Box
         component="nav"
         sx={{
-          width: { sm: drawerWidth },
-          flexShrink: { sm: 0 }
+          width: { xl: drawerWidth },
+          flexShrink: { xl: 0 }
         }}
       >
         <Drawer
@@ -62,7 +120,7 @@ const SidebarLeft = () => {
             keepMounted: true // Better open performance on mobile.
           }}
           sx={{
-            display: { xs: 'block', sm: 'none' },
+            display: { xs: 'block', xl: 'none' },
             '& .MuiDrawer-paper': {
               width: drawerWidth
             }
@@ -73,7 +131,7 @@ const SidebarLeft = () => {
         <Drawer
           variant="permanent"
           sx={{
-            display: { xs: 'none', sm: 'block' },
+            display: { xs: 'none', xl: 'block' },
 
             '& .MuiDrawer-paper': {
               width: drawerWidth,
@@ -86,14 +144,86 @@ const SidebarLeft = () => {
         </Drawer>
       </Box>
 
-      <IconButton
-        onClick={handleDrawerToggle}
-        sx={{ mr: 2, display: { sm: 'none' } }}
-      >
-        <BsList />
-      </IconButton>
-      <Box component="main" p={3} width="100%">
-        <Dashboard />
+      <Box component="main" width="100%">
+        <AppBar
+          position="sticky"
+          color="transparent"
+          sx={{ backdropFilter: 'blur(5px)' }}
+          elevation={0}
+        >
+          <Container
+            maxWidth="xl"
+            sx={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center'
+            }}
+          >
+            <IconButton
+              onClick={handleDrawerToggle}
+              sx={{
+                display: { xl: 'none' },
+                fontSize: '1.6rem'
+              }}
+            >
+              <BsList />
+            </IconButton>
+            {localStorage.getItem('token') && (
+              <Toolbar disableGutters>
+                <Box>
+                  <Tooltip title="Open settings">
+                    <IconButton onClick={handleOpenUserMenu}>
+                      <Avatar alt="Remy Sharp" src="/img/user.jpg" />
+                    </IconButton>
+                  </Tooltip>
+                  <Menu
+                    sx={{ mt: '45px' }}
+                    id="menu-appbar"
+                    anchorEl={anchorElUser}
+                    anchorOrigin={{
+                      vertical: 'top',
+                      horizontal: 'right'
+                    }}
+                    keepMounted
+                    transformOrigin={{
+                      vertical: 'top',
+                      horizontal: 'right'
+                    }}
+                    open={Boolean(anchorElUser)}
+                    onClose={handleCloseUserMenu}
+                  >
+                    <MenuItem sx={{ borderBottom: '1px solid #ddd' }}>
+                      <Typography textAlign="center" sx={{ fontWeight: 700 }}>
+                        {state.authInfo['email']}
+                      </Typography>
+                    </MenuItem>
+
+                    <MenuItem>
+                      <Typography textAlign="center">profile</Typography>
+                    </MenuItem>
+                    <MenuItem>
+                      <Typography textAlign="center">account</Typography>
+                    </MenuItem>
+                    <MenuItem>
+                      <Typography textAlign="center">setting</Typography>
+                    </MenuItem>
+                    <MenuItem onClick={handleLogout}>
+                      <Typography textAlign="center">logout</Typography>
+                    </MenuItem>
+                  </Menu>
+                </Box>
+              </Toolbar>
+            )}
+          </Container>
+        </AppBar>
+        <Box p={5}>
+          <Routes>
+            <Route path="/user" element={<User />} />
+            <Route path="/products" element={<Products />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/dashboard" element={<Dashboard />} />
+          </Routes>
+        </Box>
       </Box>
     </Box>
   );

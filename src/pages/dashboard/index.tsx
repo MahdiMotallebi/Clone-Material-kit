@@ -4,7 +4,6 @@ import axios from '../../utils/axiosinstance';
 //Mui
 import { DataGrid, GridColDef, GridRenderCellParams } from '@mui/x-data-grid';
 import { Box, useTheme, Paper, MenuItem, Tooltip } from '@mui/material';
-import { tokens } from '../../theme/themeConfig';
 
 //icons
 import { BsTrash, BsPencil } from 'react-icons/bs';
@@ -22,14 +21,6 @@ const Dashboard = () => {
 
     fetchPosts();
   }, []);
-
-  const handleEditPost = async (
-    e: React.MouseEvent<HTMLLIElement, MouseEvent>,
-    post: Post
-  ) => {
-    e.stopPropagation();
-    const { id, userId } = post;
-  };
 
   const handleRemovePost = async (id: number) => {
     try {
@@ -55,7 +46,7 @@ const Dashboard = () => {
     {
       field: '#',
       headerName: '#',
-      flex: 0.3,
+      flex: 0.1,
       renderCell: (params: GridRenderCellParams<string>) => {
         return (
           <Box
@@ -74,11 +65,11 @@ const Dashboard = () => {
     {
       field: 'title',
       headerName: 'Title',
-      flex: 0.8,
+      flex: 0.5,
       renderCell: (params: GridRenderCellParams<string>) => {
         return (
           <Box sx={{ display: 'flex', alignItems: 'center' }}>
-            {params.row.title.slice(0, 15).concat('...')}
+            {params.row.title.slice(0, 20).concat('...')}
           </Box>
         );
       }
@@ -90,7 +81,7 @@ const Dashboard = () => {
       renderCell: (params: GridRenderCellParams<string>) => {
         return (
           <Box sx={{ display: 'flex', alignItems: 'center' }}>
-            {params.row.body.slice(0, 50).concat('...')}
+            {params.row.body.slice(0, 70).concat('...')}
           </Box>
         );
       }
@@ -98,7 +89,7 @@ const Dashboard = () => {
     {
       field: 'action',
       headerName: '',
-      flex: 0.5,
+      flex: 0.3,
       renderCell: (params: GridRenderCellParams<string>) => {
         return (
           <Box sx={{ display: 'flex', alignItems: 'center' }}>

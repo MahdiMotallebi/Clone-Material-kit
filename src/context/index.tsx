@@ -23,18 +23,25 @@ export interface Post {
   body: string;
 }
 
+interface AuthInfo {
+  name: string;
+  email: string;
+}
+
 interface InitialState {
   mode: PaletteMode;
   posts: Post[];
   showModal: boolean;
   updatedPost: Post;
+  authInfo: AuthInfo;
 }
 //initailState
 const initialState: InitialState = {
   mode: 'light',
   posts: [],
   showModal: false,
-  updatedPost: { id: 1, userId: 1, title: '', body: '' }
+  updatedPost: { id: 1, userId: 1, title: '', body: '' },
+  authInfo: { name: '', email: '' }
 };
 
 //create context
