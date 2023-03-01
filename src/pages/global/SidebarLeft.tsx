@@ -1,6 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Link, Route, Routes } from 'react-router-dom';
+import { useGlobalContext } from '../../context';
 
 //MUI
 import {
@@ -17,7 +18,8 @@ import {
   Avatar,
   Menu,
   MenuItem,
-  Typography
+  Typography,
+  Switch
 } from '@mui/material';
 
 //icons
@@ -32,8 +34,6 @@ import {
 //components
 import Dashboard from '../dashboard';
 import Login from '../login';
-import { useGlobalContext } from '../../context';
-import Home from '../user';
 import Products from '../products';
 import User from '../user';
 
@@ -41,8 +41,9 @@ const drawerWidth = '240px';
 
 const SidebarLeft = () => {
   const navigate = useNavigate();
-  const { state } = useGlobalContext();
+  const { state, handleState } = useGlobalContext();
   const [mobileOpen, setMobileOpen] = React.useState<boolean>(false);
+  const [Ltr, setLtr] = React.useState<boolean>(true);
 
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(
     null
@@ -64,6 +65,13 @@ const SidebarLeft = () => {
     localStorage.removeItem('token');
     handleCloseUserMenu();
     navigate('/login');
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setLtr(e.target.checked);
+    e.target.checked
+      ? handleState({ ...state, dir: 'ltr' })
+      : handleState({ ...state, dir: 'rtl' });
   };
 
   const menu = [
@@ -109,7 +117,8 @@ const SidebarLeft = () => {
         component="nav"
         sx={{
           width: { xl: drawerWidth },
-          flexShrink: { xl: 0 }
+          flexShrink: { xl: 0 },
+          position: 'relative'
         }}
       >
         <Drawer
@@ -148,29 +157,54 @@ const SidebarLeft = () => {
         <AppBar
           position="sticky"
           color="transparent"
-          sx={{ backdropFilter: 'blur(5px)' }}
+          sx={{
+            backdropFilter: 'blur(5px)',
+            height: '80px',
+            boxShadow: '0 0  10px #ddd'
+          }}
           elevation={0}
         >
           <Container
             maxWidth="xl"
             sx={{
+              height: '100%',
               display: 'flex',
-              justifyContent: 'space-between',
-              alignItems: 'center'
+              alignItems: 'center',
+              justifyContent: 'space-between'
             }}
           >
-            <IconButton
-              onClick={handleDrawerToggle}
+            <Box
               sx={{
-                display: { xl: 'none' },
-                fontSize: '1.6rem'
+                display: 'flex',
+                alignItems: 'center',
+                gap: '1rem'
               }}
             >
-              <BsList />
-            </IconButton>
+              <IconButton
+                onClick={handleDrawerToggle}
+                sx={{
+                  display: { xl: 'none' },
+                  fontSize: '1.6rem'
+                }}
+              >
+                <BsList />
+              </IconButton>
+              <Box>
+                <Box component="span" textTransform="uppercase">
+                  ltr
+                </Box>
+                <Switch
+                  checked={Ltr}
+                  onChange={(e) => handleChange(e)}
+                  value={Ltr}
+                  color="primary"
+                />
+              </Box>
+            </Box>
+
             {localStorage.getItem('token') && (
               <Toolbar disableGutters>
-                <Box>
+                <Box sx={{ marginLeft: 'auto' }}>
                   <Tooltip title="Open settings">
                     <IconButton onClick={handleOpenUserMenu}>
                       <Avatar alt="Remy Sharp" src="/img/user.jpg" />

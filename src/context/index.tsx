@@ -6,6 +6,7 @@ import React, { createContext, useContext } from 'react';
 import { PaletteMode } from '@mui/material';
 import { ThemeProvider } from '@mui/material/styles';
 import { useMode } from '../theme/themeConfig';
+import Direction from '../components/direction';
 
 //Types
 interface ProviderTypes {
@@ -34,6 +35,7 @@ interface InitialState {
   showModal: boolean;
   updatedPost: Post;
   authInfo: AuthInfo;
+  dir: string;
 }
 //initailState
 const initialState: InitialState = {
@@ -41,7 +43,8 @@ const initialState: InitialState = {
   posts: [],
   showModal: false,
   updatedPost: { id: 1, userId: 1, title: '', body: '' },
-  authInfo: { name: '', email: '' }
+  authInfo: { name: '', email: '' },
+  dir: document.documentElement.dir
 };
 
 //create context
@@ -68,7 +71,9 @@ const ContextProvider = ({ children }: ProviderTypes) => {
         handleState
       }}
     >
-      <ThemeProvider theme={theme}>{children}</ThemeProvider>
+      <Direction>
+        <ThemeProvider theme={theme}>{children}</ThemeProvider>
+      </Direction>
     </GlobalContext.Provider>
   );
 };
