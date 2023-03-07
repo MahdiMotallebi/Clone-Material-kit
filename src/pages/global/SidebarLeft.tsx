@@ -1,5 +1,5 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { Link, Route, Routes } from 'react-router-dom';
 import { useGlobalContext } from '../../context';
 
@@ -8,7 +8,6 @@ import {
   Box,
   IconButton,
   List,
-  ListItemButton,
   ListItemText,
   Drawer,
   AppBar,
@@ -19,17 +18,14 @@ import {
   Menu,
   MenuItem,
   Typography,
-  Switch
+  Switch,
+  Icon,
+  useTheme,
+  ListItem
 } from '@mui/material';
 
 //icons
-import {
-  BsFillPersonFill,
-  BsList,
-  BsFillBarChartFill,
-  BsPersonPlusFill,
-  BsBasket3Fill
-} from 'react-icons/bs';
+import { BsList, BsSearch } from 'react-icons/bs';
 
 //components
 import Dashboard from '../dashboard';
@@ -37,11 +33,16 @@ import Login from '../login';
 import Products from '../products';
 import User from '../user';
 import Home from '../home';
+import { tokens } from '../../theme/themeConfig';
 
-const drawerWidth = '240px';
+const drawerWidth = '280px';
 
 const SidebarLeft = () => {
+  const theme = useTheme();
+  const colors = tokens(theme.palette.mode);
   const navigate = useNavigate();
+  const location = useLocation();
+  console.log(navigate);
   const { state, handleState } = useGlobalContext();
   const [mobileOpen, setMobileOpen] = React.useState<boolean>(false);
   const [Ltr, setLtr] = React.useState<boolean>(true);
@@ -76,40 +77,140 @@ const SidebarLeft = () => {
   };
 
   const menu = [
-    { text: 'Dashboard', icon: <BsFillBarChartFill />, path: '/dashboard' },
-    { text: 'User', icon: <BsFillPersonFill />, path: '/user' },
-    { text: 'Products', icon: <BsBasket3Fill />, path: '/products' },
-    { text: 'Login', icon: <BsPersonPlusFill />, path: '/login' }
+    {
+      text: 'Dashboard',
+      icon: '/assets/icons/navbar/ic_analytics.svg',
+      path: '/dashboard'
+    },
+    { text: 'User', icon: '/assets/icons/navbar/ic_user.svg', path: '/user' },
+    {
+      text: 'Products',
+      icon: '/assets/icons/navbar/ic_cart.svg',
+      path: '/products'
+    },
+    { text: 'Login', icon: '/assets/icons/navbar/ic_lock.svg', path: '/login' },
+
+    { text: 'Blog', icon: '/assets/icons/navbar/ic_blog.svg', path: '/blog' },
+    {
+      text: 'Not Found',
+      icon: '/assets/icons/navbar/ic_disabled.svg',
+      path: '/notfound'
+    }
   ];
 
   const drawer = (
-    <List sx={{ padding: '1rem' }}>
-      {menu.map(({ text, icon, path }) => {
-        if (
-          (text === 'Dashboard' && !localStorage.getItem('token')) ||
-          (text === 'Login' && localStorage.getItem('token'))
-        ) {
-          return null;
-        } else {
-          return (
-            <>
-              <Link to={path} style={{ color: 'grey', textDecoration: 'none' }}>
-                <ListItemButton
+    <Box
+      display="flex"
+      flexDirection="column"
+      gap="1rem"
+      alignItems="flex-start"
+      height=" 100vh"
+      sx={{
+        overflow: 'hidden',
+        transition: '1s',
+        '&:hover': {
+          overflow: 'overlay'
+        }
+      }}
+    >
+      <Box width="100%" padding=" 1rem">
+        <Icon sx={{ fontSize: '3rem', marginBottom: '1rem' }}>
+          <img src="/assets/logo.svg" alt="logo" />
+        </Icon>
+        <Box
+          display="flex"
+          justifyContent="flex-start"
+          alignItems="center"
+          gap="1rem"
+          padding=" 1rem"
+          margin="0 auto"
+          borderRadius="1rem"
+          sx={{
+            background: `${colors.grey['700']}`
+          }}
+        >
+          <Avatar alt="Remy Sharp" src="/img/user.jpg" />
+
+          <Typography
+            sx={{
+              textTransform: 'capitalize',
+              fontWeight: '700'
+            }}
+            variant="body1"
+          >
+            jaydon frankie
+          </Typography>
+        </Box>
+      </Box>
+
+      <List sx={{ padding: '1rem', width: '100%' }}>
+        {menu.map(({ text, icon, path }) => {
+          if (
+            (text === 'Dashboard' && !localStorage.getItem('token')) ||
+            (text === 'Login' && localStorage.getItem('token'))
+          ) {
+            return null;
+          } else {
+            return (
+              <>
+                <ListItem
+                  button
+                  component={Link}
+                  to={path}
+                  selected={path === location.pathname}
                   sx={{
                     display: 'flex',
                     gap: '1rem',
-                    borderRadius: '.5rem'
+                    borderRadius: '.5rem',
+                    selected: `${path === location.pathname}`
                   }}
                 >
-                  {icon}
+                  <Icon>
+                    <img src={`${icon !== undefined && icon}`} alt="icon" />
+                  </Icon>
                   <ListItemText primary={text} />
-                </ListItemButton>
-              </Link>
-            </>
-          );
-        }
-      })}
-    </List>
+                </ListItem>
+              </>
+            );
+          }
+        })}
+      </List>
+
+      <Box
+        display="flex"
+        flexDirection="column"
+        alignItems="center"
+        justifyContent="center"
+        width="100%"
+        padding="2rem 0"
+      >
+        <Icon sx={{ fontSize: '6rem' }}>
+          <img src="/assets/illustrations/illustration_avatar.png" alt="logo" />
+        </Icon>
+
+        <Typography
+          sx={{
+            textTransform: 'capitalize',
+            fontWeight: '700',
+            fonSize: '1.2rem'
+          }}
+        >
+          get more?
+        </Typography>
+        <Typography
+          sx={{
+            '&::first-letter': {
+              textTransform: 'capitalize'
+            },
+            fontWeight: '300',
+            variant: 'body1',
+            color: ` ${theme.palette.text.secondary}`
+          }}
+        >
+          from only 69$
+        </Typography>
+      </Box>
+    </Box>
   );
 
   return (
@@ -178,7 +279,7 @@ const SidebarLeft = () => {
               sx={{
                 display: 'flex',
                 alignItems: 'center',
-                gap: '1rem'
+                gap: '.5rem'
               }}
             >
               <IconButton
@@ -190,6 +291,15 @@ const SidebarLeft = () => {
               >
                 <BsList />
               </IconButton>
+              <Box>
+                <IconButton
+                  sx={{
+                    fontSize: '1rem'
+                  }}
+                >
+                  <BsSearch />
+                </IconButton>
+              </Box>
               <Box>
                 <Box component="span" textTransform="uppercase">
                   ltr
@@ -212,7 +322,7 @@ const SidebarLeft = () => {
                     </IconButton>
                   </Tooltip>
                   <Menu
-                    sx={{ mt: '45px' }}
+                    sx={{ mt: '45px', padding: '1rem' }}
                     id="menu-appbar"
                     anchorEl={anchorElUser}
                     anchorOrigin={{
@@ -227,24 +337,21 @@ const SidebarLeft = () => {
                     open={Boolean(anchorElUser)}
                     onClose={handleCloseUserMenu}
                   >
-                    <MenuItem sx={{ borderBottom: '1px solid #ddd' }}>
+                    <MenuItem
+                      sx={{
+                        borderBottom: '1px solid #ddd',
+                        borderRaduis: '1rem'
+                      }}
+                    >
                       <Typography textAlign="center" sx={{ fontWeight: 700 }}>
                         {state.authInfo['email']}
                       </Typography>
                     </MenuItem>
 
-                    <MenuItem>
-                      <Typography textAlign="center">profile</Typography>
-                    </MenuItem>
-                    <MenuItem>
-                      <Typography textAlign="center">account</Typography>
-                    </MenuItem>
-                    <MenuItem>
-                      <Typography textAlign="center">setting</Typography>
-                    </MenuItem>
-                    <MenuItem onClick={handleLogout}>
-                      <Typography textAlign="center">logout</Typography>
-                    </MenuItem>
+                    <MenuItem>profile</MenuItem>
+                    <MenuItem>account</MenuItem>
+                    <MenuItem>setting</MenuItem>
+                    <MenuItem onClick={handleLogout}>logout</MenuItem>
                   </Menu>
                 </Box>
               </Toolbar>
