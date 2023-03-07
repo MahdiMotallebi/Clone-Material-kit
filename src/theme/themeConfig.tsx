@@ -202,8 +202,8 @@ export const customeTheme = (mode: PaletteMode) => {
             },
 
             background: {
-              default: colors.grey[800],
-              paper: colors.grey[900]
+              default: colors.grey[600],
+              paper: colors.grey[800]
             },
             text: {
               primary: colors.grey[200],
@@ -215,12 +215,8 @@ export const customeTheme = (mode: PaletteMode) => {
   };
 };
 
-export const useMode = () => {
-  const { state } = useGlobalContext();
-  const theme = React.useMemo(
-    () => createTheme(customeTheme(state.mode)),
-    [state.mode]
-  );
+export const useMode = (mode: PaletteMode) => {
+  const theme = React.useMemo(() => createTheme(customeTheme(mode)), [mode]);
 
   return { theme };
 };

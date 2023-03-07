@@ -25,7 +25,7 @@ import {
 } from '@mui/material';
 
 //icons
-import { BsList, BsSearch } from 'react-icons/bs';
+import { BsFillSunFill, BsList, BsMoonFill, BsSearch } from 'react-icons/bs';
 
 //components
 import Dashboard from '../dashboard';
@@ -42,11 +42,9 @@ const SidebarLeft = () => {
   const colors = tokens(theme.palette.mode);
   const navigate = useNavigate();
   const location = useLocation();
-  console.log(navigate);
   const { state, handleState } = useGlobalContext();
   const [mobileOpen, setMobileOpen] = React.useState<boolean>(false);
   const [Ltr, setLtr] = React.useState<boolean>(true);
-
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(
     null
   );
@@ -74,6 +72,10 @@ const SidebarLeft = () => {
     e.target.checked
       ? handleState({ ...state, dir: 'ltr' })
       : handleState({ ...state, dir: 'rtl' });
+  };
+
+  const handleThemeMode = () => {
+    handleState({ ...state, mode: state.mode === 'dark' ? 'light' : 'dark' });
   };
 
   const menu = [
@@ -126,7 +128,7 @@ const SidebarLeft = () => {
           margin="0 auto"
           borderRadius="1rem"
           sx={{
-            background: `${colors.grey['700']}`
+            background: `${theme.palette.background.default}`
           }}
         >
           <Avatar alt="Remy Sharp" src="/img/user.jpg" />
@@ -247,7 +249,7 @@ const SidebarLeft = () => {
             '& .MuiDrawer-paper': {
               width: drawerWidth,
               borderRight: '1px dashed #ddd',
-              background: '#f7f7f7'
+              background: `${theme.palette.background.paper}`
             }
           }}
         >
@@ -255,14 +257,19 @@ const SidebarLeft = () => {
         </Drawer>
       </Box>
 
-      <Box component="main" width="100%">
+      <Box
+        component="main"
+        width="100%"
+        sx={{
+          background: `${theme.palette.background.default}`
+        }}
+      >
         <AppBar
           position="sticky"
           color="transparent"
           sx={{
             backdropFilter: 'blur(5px)',
-            height: '80px',
-            boxShadow: '0 0  10px #ddd'
+            height: '80px'
           }}
           elevation={0}
         >
@@ -298,6 +305,20 @@ const SidebarLeft = () => {
                   }}
                 >
                   <BsSearch />
+                </IconButton>
+              </Box>
+              <Box>
+                <IconButton
+                  sx={{
+                    fontSize: '1rem'
+                  }}
+                  onClick={handleThemeMode}
+                >
+                  {theme.palette.mode === 'dark' ? (
+                    <BsFillSunFill />
+                  ) : (
+                    <BsMoonFill />
+                  )}
                 </IconButton>
               </Box>
               <Box>

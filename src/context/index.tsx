@@ -5,7 +5,7 @@ import React, { createContext, useContext } from 'react';
 //Mui
 import { PaletteMode } from '@mui/material';
 import { ThemeProvider } from '@mui/material/styles';
-import { useMode } from '../theme/themeConfig';
+import { customeTheme, useMode } from '../theme/themeConfig';
 import Direction from '../components/direction';
 
 //Types
@@ -39,7 +39,7 @@ interface InitialState {
 }
 //initailState
 const initialState: InitialState = {
-  mode: 'light',
+  mode: 'dark',
   posts: [],
   showModal: false,
   updatedPost: { id: 1, userId: 1, title: '', body: '' },
@@ -63,7 +63,9 @@ const ContextProvider = ({ children }: ProviderTypes) => {
   const handleState = (s: InitialState) => {
     setState(s);
   };
-  const { theme } = useMode();
+
+  const { theme } = useMode(state.mode);
+
   return (
     <GlobalContext.Provider
       value={{
