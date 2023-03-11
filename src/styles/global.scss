@@ -104,3 +104,8 @@ textarea {
 .apexcharts-legend-series {
   text-transform: capitalize;
 }
+
+//Modal
+.MuiModal-root .MuiModal-backdrop {
+  background: rgba(0, 0, 0, 0.08);
+}
