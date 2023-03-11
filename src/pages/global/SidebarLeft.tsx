@@ -21,7 +21,8 @@ import {
   Switch,
   Icon,
   useTheme,
-  ListItem
+  ListItem,
+  alpha
 } from '@mui/material';
 
 //icons
@@ -128,7 +129,12 @@ const SidebarLeft = () => {
           margin="0 auto"
           borderRadius="1rem"
           sx={{
-            background: `${theme.palette.background.default}`
+            background: `${alpha(
+              theme.palette.background[
+                `${theme.palette.mode === 'light' ? 'default' : 'paper'}`
+              ],
+              1
+            )}`
           }}
         >
           <Avatar alt="Remy Sharp" src="/img/user.jpg" />
@@ -249,7 +255,10 @@ const SidebarLeft = () => {
             '& .MuiDrawer-paper': {
               width: drawerWidth,
               borderRight: '1px dashed #ddd',
-              background: `${theme.palette.background.paper}`
+              background: `${alpha(
+                theme.palette.background.default,
+                theme.palette.mode === 'dark' ? 1 : 0.5
+              )}`
             }
           }}
         >
@@ -261,7 +270,10 @@ const SidebarLeft = () => {
         component="main"
         width="100%"
         sx={{
-          background: `${theme.palette.background.default}`
+          background: `${alpha(
+            theme.palette.background.default,
+            theme.palette.mode === 'dark' ? 1 : 0.5
+          )}`
         }}
       >
         <AppBar
@@ -379,7 +391,7 @@ const SidebarLeft = () => {
             )}
           </Container>
         </AppBar>
-        <Box p={5}>
+        <Box p={3}>
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/user" element={<User />} />

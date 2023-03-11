@@ -4,7 +4,7 @@ import React, { createContext, useContext } from 'react';
 
 //Mui
 import { PaletteMode } from '@mui/material';
-import { ThemeProvider } from '@mui/material/styles';
+import { StyledEngineProvider, ThemeProvider } from '@mui/material/styles';
 import { customeTheme, useMode } from '../theme/themeConfig';
 import Direction from '../components/direction';
 

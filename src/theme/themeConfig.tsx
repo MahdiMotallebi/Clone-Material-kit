@@ -158,7 +158,7 @@ export const customeTheme = (mode: PaletteMode) => {
 
   return {
     typography: {
-      fontFamily: ['Titillium web', 'sans-serif'].join(',')
+      fontFamily: ['nunito', 'sans-serif'].join(',')
     },
     breakpoints: {
       values: {
@@ -171,6 +171,7 @@ export const customeTheme = (mode: PaletteMode) => {
     },
     palette: {
       mode: mode,
+      colors,
       border: palette.augmentColor({
         color: {
           main: colors.grey[600],
@@ -182,12 +183,12 @@ export const customeTheme = (mode: PaletteMode) => {
         ? {
             // palette values for dark mode
             primary: {
-              main: colors.info[500]
+              main: colors.info[300]
             },
 
             background: {
-              default: colors.primary[600],
-              paper: colors.primary[500]
+              default: colors.primary[800],
+              paper: colors.primary[600]
             },
             text: {
               primary: colors.grey[500],
@@ -202,8 +203,8 @@ export const customeTheme = (mode: PaletteMode) => {
             },
 
             background: {
-              default: colors.grey[600],
-              paper: colors.grey[800]
+              default: colors.grey[700],
+              paper: colors.grey[900]
             },
             text: {
               primary: colors.grey[200],
