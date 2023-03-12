@@ -2,12 +2,14 @@ import * as React from 'react';
 
 //Mui
 import {
+  alpha,
   Box,
   Button,
   Modal,
   Stack,
   TextField,
-  Typography
+  Typography,
+  useTheme
 } from '@mui/material';
 import { Post, useGlobalContext } from '../context';
 import axios from '../utils/axiosinstance';
@@ -28,6 +30,7 @@ const style = {
 
 const UpdatePost = () => {
   const { state, handleState } = useGlobalContext();
+  const theme = useTheme();
   const [title, setTitle] = React.useState<string>(state.updatedPost.title);
   const [body, setBody] = React.useState<string>(state.updatedPost.body);
 
@@ -60,7 +63,11 @@ const UpdatePost = () => {
             variant="h5"
             component="h5"
             mb={5}
-            sx={{ textTransform: 'capitalize', fontWeight: '700' }}
+            sx={{
+              textTransform: 'capitalize',
+              fontWeight: '700',
+              color: `${theme.palette.text.primary}`
+            }}
           >
             update post
           </Typography>
