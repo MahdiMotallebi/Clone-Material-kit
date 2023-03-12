@@ -129,15 +129,17 @@ const SidebarLeft = () => {
           margin="0 auto"
           borderRadius="1rem"
           sx={{
-            background: `${alpha(
-              theme.palette.background[
-                `${theme.palette.mode === 'light' ? 'default' : 'paper'}`
-              ],
-              1
-            )}`
+            background: `${
+              theme.palette.mode === 'light'
+                ? colors.grey['500']
+                : theme.palette.background['paper']
+            }`
           }}
         >
-          <Avatar alt="Remy Sharp" src="/img/user.jpg" />
+          <Avatar
+            alt="Remy Sharp"
+            src="/assets/images/avatars/avatar_default.jpg"
+          />
 
           <Typography
             sx={{
@@ -241,7 +243,9 @@ const SidebarLeft = () => {
           sx={{
             display: { xs: 'block', xl: 'none' },
             '& .MuiDrawer-paper': {
-              width: drawerWidth
+              width: drawerWidth,
+              borderRight: '1px dashed #ddd',
+              background: `${alpha(theme.palette.background.default, 1)}`
             }
           }}
         >
@@ -333,10 +337,14 @@ const SidebarLeft = () => {
                   )}
                 </IconButton>
               </Box>
-              <Box>
-                <Box component="span" textTransform="uppercase">
+              <Box display="flex" alignItems="center">
+                <Typography
+                  component="span"
+                  textTransform="uppercase"
+                  sx={{ color: `${theme.palette.text.primary}` }}
+                >
                   ltr
-                </Box>
+                </Typography>
                 <Switch
                   checked={Ltr}
                   onChange={(e) => handleChange(e)}
@@ -351,7 +359,10 @@ const SidebarLeft = () => {
                 <Box sx={{ marginLeft: 'auto' }}>
                   <Tooltip title="Open settings">
                     <IconButton onClick={handleOpenUserMenu}>
-                      <Avatar alt="Remy Sharp" src="/img/user.jpg" />
+                      <Avatar
+                        alt="Remy Sharp"
+                        src="/assets/images/avatars/avatar_default.jpg"
+                      />
                     </IconButton>
                   </Tooltip>
                   <Menu
@@ -369,29 +380,65 @@ const SidebarLeft = () => {
                     }}
                     open={Boolean(anchorElUser)}
                     onClose={handleCloseUserMenu}
+                    PaperProps={{
+                      elevation: 0,
+                      sx: {
+                        overflow: 'visible',
+                        minWidth: 150,
+                        filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
+                        mt: '1.5',
+                        padding: '0 .5rem',
+                        '& li': {
+                          borderRadius: '.3rem',
+                          textTransform: 'capitalize'
+                        },
+                        '&:before': {
+                          content: '""',
+                          display: 'block',
+                          position: 'absolute',
+                          top: 0,
+                          right: 14,
+                          width: 10,
+                          height: 10,
+                          bgcolor: 'background.paper',
+                          transform: 'translateY(-50%) rotate(45deg)',
+                          zIndex: 0
+                        }
+                      }
+                    }}
                   >
-                    <MenuItem
-                      sx={{
-                        borderBottom: '1px solid #ddd',
-                        borderRaduis: '1rem'
-                      }}
-                    >
-                      <Typography textAlign="center" sx={{ fontWeight: 700 }}>
-                        {state.authInfo['email']}
-                      </Typography>
-                    </MenuItem>
+                    {localStorage.getItem('token') && (
+                      <MenuItem
+                        sx={{
+                          borderBottom: '1px dashed #ddd',
+                          borderRaduis: '1rem'
+                        }}
+                      >
+                        <Typography textAlign="center" sx={{ fontWeight: 700 }}>
+                          {state.authInfo['email'] || 'abc@gmail.com'}
+                        </Typography>
+                      </MenuItem>
+                    )}
 
                     <MenuItem>profile</MenuItem>
                     <MenuItem>account</MenuItem>
                     <MenuItem>setting</MenuItem>
-                    <MenuItem onClick={handleLogout}>logout</MenuItem>
+                    <MenuItem
+                      sx={{
+                        borderTop: '1px dashed #ddd',
+                        borderRaduis: '1rem'
+                      }}
+                      onClick={handleLogout}
+                    >
+                      logout
+                    </MenuItem>
                   </Menu>
                 </Box>
               </Toolbar>
             )}
           </Container>
         </AppBar>
-        <Box p={3}>
+        <Box p={5} height="100vh" sx={{ position: 'relative' }}>
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/user" element={<User />} />
