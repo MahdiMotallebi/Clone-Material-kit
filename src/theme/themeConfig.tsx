@@ -16,7 +16,7 @@ export const tokens = (mode: PaletteMode) => ({
   ...(mode === 'dark'
     ? {
         grey: {
-          100: '#f8f8f8',
+          100: '#fff',
           200: '#f2f2f2',
           300: '#ebebeb',
           400: '#e5e5e5',
@@ -34,8 +34,8 @@ export const tokens = (mode: PaletteMode) => ({
           500: '#30334e',
           600: '#26293e',
           700: '#1d1f2f',
-          800: '#13141f',
-          900: '#0a0a10'
+          800: '#171728',
+          900: '#13141f'
         },
         success: {
           100: '#e5f5d2',
@@ -92,11 +92,11 @@ export const tokens = (mode: PaletteMode) => ({
           600: '#e5e5e5',
           700: '#ebebeb',
           800: '#f2f2f2',
-          900: '#f8f8f8'
+          900: '#fff' // change
         },
         primary: {
-          100: '#0a0a10',
-          200: '#13141f',
+          100: '#13141f',
+          200: '#171728',
           300: '#1d1f2f',
           400: '#26293e',
           500: '#30334e',
