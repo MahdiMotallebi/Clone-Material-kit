@@ -10,56 +10,6 @@
   outline: none;
 }
 
-html {
-  scroll-behavior: smooth;
-}
-
-body {
-  font-size: 10px;
-  overflow-x: hidden;
-  width: 100%;
-  height: 100vh;
-  font-family: 'Titillium Web', sans-serif;
-}
-
-ol,
-ul {
-  list-style: none;
-}
-
-img {
-  object-fit: cover;
-  max-width: 100%;
-  display: block;
-  height: 400;
-}
-
-table {
-  border-collapse: collapse;
-}
-
-textarea {
-  white-space: revert;
-}
-
-*::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
-}
-
-*::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-*::-webkit-scrollbar-thumb {
-  background-color: #888;
-  border-radius: 0.5rem;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: #555;
-}
-
 //Remove outline when select cell in data grid
 .MuiDataGrid-root .MuiDataGrid-columnHeader:focus,
 .MuiDataGrid-root .MuiDataGrid-cell:focus {
@@ -71,41 +21,7 @@ textarea {
 }
 
 //Chart
-.tooltipWebsiteVisit {
-  background-color: rgba(255, 255, 255, 0.5);
-  backdrop-filter: blur(10px);
-  border-radius: 10px;
-  padding: 0.5rem;
-  font-family: 'nunito';
-  color: #555;
-  .apexcharts-tooltip-text-y-label {
-    font-size: 0.7rem;
-  }
-
-  .apexcharts-tooltip-text-y-value {
-    font-weight: 700;
-    font-size: 0.8rem;
-  }
-}
-
-.apexcharts-xaxistooltip-bottom {
-  background-color: rgba(255, 255, 255, 0.3) !important;
-  backdrop-filter: blur(3px);
-  border: 1px solid rgba(0, 0, 0, 0.08) !important;
-  border-radius: 10px !important;
-}
-
-.pieTooltip {
-  background-color: rgba(0 0 0 / 0.7);
-  backdrop-filter: blur(0.3px);
-  color: #fff;
-}
-
-.apexcharts-legend-series {
-  text-transform: capitalize;
-}
 
 //Modal
-.MuiModal-root .MuiModal-backdrop {
-  background: rgba(0, 0, 0, 0.08);
-}
+
+//Loading
