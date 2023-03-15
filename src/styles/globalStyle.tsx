@@ -7,7 +7,7 @@ export const GlobalStyle = () => {
     <>
       <CssBaseline />
       <GlobalStyles
-        styles={() => ({
+        styles={(theme) => ({
           //Global
           html: {
             scrollBehavior: 'smooth'
@@ -106,7 +106,7 @@ export const GlobalStyle = () => {
           },
 
           '.loading div ': {
-            background: '#fff',
+            background: `${theme.palette.primary.main}`,
             width: '20px',
             height: '20px',
             borderRadius: '50%'
