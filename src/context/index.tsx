@@ -39,7 +39,7 @@ interface InitialState {
 }
 //initailState
 const initialState: InitialState = {
-  mode: 'dark',
+  mode: 'light',
   posts: [],
   showModal: false,
   updatedPost: { id: 1, userId: 1, title: '', body: '' },

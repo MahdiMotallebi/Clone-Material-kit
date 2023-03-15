@@ -155,34 +155,27 @@ const SidebarLeft = () => {
 
       <List sx={{ padding: '1rem', width: '100%' }}>
         {menu.map(({ text, icon, path }) => {
-          if (
-            (text === 'Dashboard' && !localStorage.getItem('token')) ||
-            (text === 'Login' && localStorage.getItem('token'))
-          ) {
-            return null;
-          } else {
-            return (
-              <>
-                <ListItem
-                  button
-                  component={Link}
-                  to={path}
-                  selected={path === location.pathname}
-                  sx={{
-                    display: 'flex',
-                    gap: '1rem',
-                    borderRadius: '.5rem',
-                    selected: `${path === location.pathname}`
-                  }}
-                >
-                  <Icon>
-                    <img src={`${icon !== undefined && icon}`} alt="icon" />
-                  </Icon>
-                  <ListItemText primary={text} />
-                </ListItem>
-              </>
-            );
-          }
+          return (
+            <>
+              <ListItem
+                button
+                component={Link}
+                to={path}
+                selected={path === location.pathname}
+                sx={{
+                  display: 'flex',
+                  gap: '1rem',
+                  borderRadius: '.5rem',
+                  selected: `${path === location.pathname}`
+                }}
+              >
+                <Icon>
+                  <img src={`${icon !== undefined && icon}`} alt="icon" />
+                </Icon>
+                <ListItemText primary={text} />
+              </ListItem>
+            </>
+          );
         })}
       </List>
 
@@ -407,18 +400,16 @@ const SidebarLeft = () => {
                       }
                     }}
                   >
-                    {localStorage.getItem('token') && (
-                      <MenuItem
-                        sx={{
-                          borderBottom: '1px dashed #ddd',
-                          borderRaduis: '1rem'
-                        }}
-                      >
-                        <Typography textAlign="center" sx={{ fontWeight: 700 }}>
-                          {state.authInfo['email'] || 'abc@gmail.com'}
-                        </Typography>
-                      </MenuItem>
-                    )}
+                    <MenuItem
+                      sx={{
+                        borderBottom: '1px dashed #ddd',
+                        borderRaduis: '1rem'
+                      }}
+                    >
+                      <Typography textAlign="center" sx={{ fontWeight: 700 }}>
+                        {state.authInfo['email'] || 'abc@gmail.com'}
+                      </Typography>
+                    </MenuItem>
 
                     <MenuItem>profile</MenuItem>
                     <MenuItem>account</MenuItem>
@@ -440,7 +431,7 @@ const SidebarLeft = () => {
         </AppBar>
         <Box p={5} height="100vh" sx={{ position: 'relative' }}>
           <Routes>
-            <Route path="/" element={<Home />} />
+            <Route path="/" element={<Dashboard />} />
             <Route path="/user" element={<User />} />
             <Route path="/products" element={<Products />} />
             <Route path="/login" element={<Login />} />

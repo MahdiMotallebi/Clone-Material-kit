@@ -217,7 +217,7 @@ const Dashboard = () => {
   // );
 
   return (
-    <>
+    <Box>
       <Typography
         component="h2"
         variant="h5"
@@ -461,7 +461,7 @@ const Dashboard = () => {
           <TimelineProject />
         </CustomCard>
       </Box>
-    </>
+    </Box>
   );
 };
 
