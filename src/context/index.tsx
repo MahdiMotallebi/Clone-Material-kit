@@ -7,6 +7,7 @@ import { PaletteMode } from '@mui/material';
 import { StyledEngineProvider, ThemeProvider } from '@mui/material/styles';
 import { customeTheme, useMode } from '../theme/themeConfig';
 import Direction from '../components/direction';
+import { HelmetProvider } from 'react-helmet-async';
 
 //Types
 interface ProviderTypes {
@@ -67,16 +68,18 @@ const ContextProvider = ({ children }: ProviderTypes) => {
   const { theme } = useMode(state.mode);
 
   return (
-    <GlobalContext.Provider
-      value={{
-        state,
-        handleState
-      }}
-    >
-      <Direction>
-        <ThemeProvider theme={theme}>{children}</ThemeProvider>
-      </Direction>
-    </GlobalContext.Provider>
+    <HelmetProvider>
+      <GlobalContext.Provider
+        value={{
+          state,
+          handleState
+        }}
+      >
+        <Direction>
+          <ThemeProvider theme={theme}>{children}</ThemeProvider>
+        </Direction>
+      </GlobalContext.Provider>
+    </HelmetProvider>
   );
 };
 
