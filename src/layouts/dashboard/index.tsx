@@ -2,15 +2,19 @@ import React from 'react';
 import { Outlet } from 'react-router-dom';
 
 //mui
-import { Box } from '@mui/material';
-import Sidebar from '../../pages/global/Sidebar';
+import { Box, Stack } from '@mui/material';
+import Sidebar from '../../pages/global/sidebar';
+import Header from '../../pages/global/header';
 const DashboardLayout = () => {
   return (
-    <Box display="flex" alignItems="center">
+    <Box display="flex" alignItems="center" height="100%">
       <Sidebar />
-      <Box component="main" border="1px solid red" width="100%" height="100vh">
-        <Outlet />
-      </Box>
+      <Stack component="main" width="100%">
+        <Header />
+        <Box p={4}>
+          <Outlet />
+        </Box>
+      </Stack>
     </Box>
   );
 };
