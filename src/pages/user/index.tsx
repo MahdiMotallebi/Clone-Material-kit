@@ -13,7 +13,6 @@ import {
   Avatar,
   Stack
 } from '@mui/material';
-import { useDemoData } from '@mui/x-data-grid-generator';
 import { tokens } from '../../theme/themeConfig';
 
 //context
@@ -26,16 +25,12 @@ import { BsTrash, BsPencil, BsPlus } from 'react-icons/bs';
 import UpdatePost from '../../components/modal';
 import Title from '../../components/chartTitle';
 import Loading from '../../components/loading';
+import { Helmet } from 'react-helmet-async';
 
 const User = () => {
   const { state, handleState } = useGlobalContext();
   const colors = tokens(state.mode);
   const theme = useTheme();
-  const { data } = useDemoData({
-    dataSet: 'Commodity',
-    rowLength: 100,
-    maxColumns: 6
-  });
 
   React.useEffect(() => {
     const fetchPosts = async () => {
@@ -55,7 +50,6 @@ const User = () => {
       const tempState = { ...state, posts: tempPosts };
       handleState(tempState);
       const res = await axios.delete(`/posts/${id}`);
-      console.log(res);
     } catch (e) {
       console.log(e);
     }
@@ -144,6 +138,9 @@ const User = () => {
 
   return (
     <>
+      <Helmet>
+        <title>User page | Mkit</title>
+      </Helmet>
       <Box
         sx={{
           display: 'flex',
@@ -166,76 +163,78 @@ const User = () => {
           </Button>
         </Box>
       </Box>
-      {state.posts.length === 0 ? (
-        <Loading />
-      ) : (
-        <Paper
-          elevation={0}
-          sx={{
-            position: 'relative',
-            border: `1px solid ${
-              theme.palette.mode === 'light'
-                ? theme.palette.border.main
-                : theme.palette.border.dark
-            }`,
-            background: `${theme.palette.background.paper}`,
-            borderRadius: '1rem',
-            '& .MuiDataGrid-root': {
-              border: 'none',
-              '& .MuiDataGrid-cell': {
+      <Box position="relative" height="100vh">
+        {state.posts.length === 0 ? (
+          <Loading />
+        ) : (
+          <Paper
+            elevation={0}
+            sx={{
+              position: 'relative',
+              border: `1px solid ${
+                theme.palette.mode === 'light'
+                  ? theme.palette.border.main
+                  : theme.palette.border.dark
+              }`,
+              background: `${theme.palette.background.paper}`,
+              borderRadius: '1rem',
+              '& .MuiDataGrid-root': {
+                border: 'none',
+                '& .MuiDataGrid-cell': {
+                  borderBottom: `1px solid ${
+                    theme.palette.mode === 'light'
+                      ? theme.palette.border.main
+                      : theme.palette.border.dark
+                  }`,
+                  '&:focus-within': {
+                    outline: 'none'
+                  }
+                },
+                '& .MuiDataGrid-columnHeaders': {
+                  '&:focus-within': {
+                    outline: 'none'
+                  }
+                }
+              },
+
+              '& .MuiDataGrid-columnHeaders': {
                 borderBottom: `1px solid ${
                   theme.palette.mode === 'light'
                     ? theme.palette.border.main
                     : theme.palette.border.dark
-                }`,
-                '&:focus-within': {
-                  outline: 'none'
-                }
+                }`
               },
-              '& .MuiDataGrid-columnHeaders': {
-                '&:focus-within': {
-                  outline: 'none'
-                }
+              '& .MuiDataGrid-virtualScroller': {
+                backgroundColor: `${
+                  theme.palette.mode === 'light'
+                    ? colors.grey[900]
+                    : colors.primary[500]
+                }`
+              },
+              '& .MuiDataGrid-footerContainer': {
+                borderTop: `1px solid ${
+                  theme.palette.mode === 'light'
+                    ? theme.palette.border.main
+                    : theme.palette.border.dark
+                }`
+              },
+              '& .MuiCheckbox-root': {
+                //   color: `${colors.info[500]} `
               }
-            },
-
-            '& .MuiDataGrid-columnHeaders': {
-              borderBottom: `1px solid ${
-                theme.palette.mode === 'light'
-                  ? theme.palette.border.main
-                  : theme.palette.border.dark
-              }`
-            },
-            '& .MuiDataGrid-virtualScroller': {
-              backgroundColor: `${
-                theme.palette.mode === 'light'
-                  ? colors.grey[900]
-                  : colors.primary[500]
-              }`
-            },
-            '& .MuiDataGrid-footerContainer': {
-              borderTop: `1px solid ${
-                theme.palette.mode === 'light'
-                  ? theme.palette.border.main
-                  : theme.palette.border.dark
-              }`
-            },
-            '& .MuiCheckbox-root': {
-              //   color: `${colors.info[500]} `
-            }
-          }}
-        >
-          <DataGrid
-            autoHeight
-            disableSelectionOnClick
-            rows={state.posts}
-            columns={columns}
-            pageSize={5}
-            rowsPerPageOptions={[5, 10, 25]}
-            rowHeight={70}
-          />
-        </Paper>
-      )}
+            }}
+          >
+            <DataGrid
+              autoHeight
+              disableSelectionOnClick
+              rows={state.posts}
+              columns={columns}
+              pageSize={5}
+              rowsPerPageOptions={[5, 10, 25]}
+              rowHeight={70}
+            />
+          </Paper>
+        )}
+      </Box>
     </>
   );
 };

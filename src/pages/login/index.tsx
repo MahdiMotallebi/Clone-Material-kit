@@ -12,6 +12,7 @@ import {
   Typography
 } from '@mui/material';
 import { useGlobalContext } from '../../context';
+import { Helmet } from 'react-helmet-async';
 
 const Login = () => {
   const { state, handleState } = useGlobalContext();
@@ -27,57 +28,63 @@ const Login = () => {
     navigate('/dashboard');
   };
   return (
-    <Box
-      justifyContent="center"
-      alignItems="center"
-      display="flex"
-      flexDirection="column"
-      gap="1rem"
-      height="100vh"
-      width="100%"
-      sx={{
-        width: { md: '75%' },
-        margin: '0 auto'
-      }}
-    >
-      <Typography component="h3" sx={{ fontWeight: '400', fontSize: '2rem' }}>
-        Login page
-      </Typography>
-      <Stack
+    <>
+      <Helmet>
+        <title>Login Page | MKit</title>
+      </Helmet>
+
+      <Box
+        justifyContent="center"
+        alignItems="center"
+        display="flex"
+        flexDirection="column"
+        gap="1rem"
+        height="100vh"
+        width="100%"
         sx={{
-          width: '100%',
-          gap: '1rem',
-          background: '#fff',
-          padding: '3rem',
-          borderRadius: '1rem'
+          width: { md: '75%' },
+          margin: '0 auto'
         }}
       >
-        <TextField
-          name="email"
-          label="Email"
-          variant="outlined"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        <TextField
-          type="password"
-          name="password"
-          label="password"
-          variant="outlined"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <FormControlLabel control={<Checkbox />} label="Remember me" />
-        <Button
-          fullWidth
-          type="submit"
-          variant="contained"
-          onClick={handleSubmit}
+        <Typography component="h3" sx={{ fontWeight: '400', fontSize: '2rem' }}>
+          Login page
+        </Typography>
+        <Stack
+          sx={{
+            width: '100%',
+            gap: '1rem',
+            background: '#fff',
+            padding: '3rem',
+            borderRadius: '1rem'
+          }}
         >
-          Login
-        </Button>
-      </Stack>
-    </Box>
+          <TextField
+            name="email"
+            label="Email"
+            variant="outlined"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          <TextField
+            type="password"
+            name="password"
+            label="password"
+            variant="outlined"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          <FormControlLabel control={<Checkbox />} label="Remember me" />
+          <Button
+            fullWidth
+            type="submit"
+            variant="contained"
+            onClick={handleSubmit}
+          >
+            Login
+          </Button>
+        </Stack>
+      </Box>
+    </>
   );
 };
 
