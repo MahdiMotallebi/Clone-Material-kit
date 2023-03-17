@@ -20,7 +20,7 @@ const CardProduct = ({ index }: CardProductProps) => {
   return (
     <Card>
       <CardMedia
-        image={`assets/images/products/product_${index + 1}.jpg`}
+        image={`/assets/images/products/product_${index + 1}.jpg`}
         title="shoe"
         component="img"
       />
