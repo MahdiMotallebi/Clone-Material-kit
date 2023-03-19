@@ -42,7 +42,7 @@ const Header = () => {
   };
 
   const handleDrawerToggle = () => {
-    setMobileOpen(!mobileOpen);
+    handleState({ ...state, openDrawer: !state.openDrawer });
   };
 
   const handleLogout = () => {

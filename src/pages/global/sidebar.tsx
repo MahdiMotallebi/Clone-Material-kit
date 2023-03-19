@@ -26,10 +26,9 @@ const Sidebar = () => {
   const colors = tokens(theme.palette.mode);
   const location = useLocation();
   const { state, handleState } = useGlobalContext();
-  const [mobileOpen, setMobileOpen] = React.useState<boolean>(false);
 
   const handleDrawerToggle = () => {
-    setMobileOpen(!mobileOpen);
+    handleState({ ...state, openDrawer: !state.openDrawer });
   };
 
   const menu = [
@@ -190,7 +189,7 @@ const Sidebar = () => {
     >
       <Drawer
         variant="temporary"
-        open={mobileOpen}
+        open={state.openDrawer}
         onClose={handleDrawerToggle}
         ModalProps={{
           keepMounted: true // Better open performance on mobile.

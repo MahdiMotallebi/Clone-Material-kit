@@ -37,6 +37,7 @@ interface InitialState {
   updatedPost: Post;
   authInfo: AuthInfo;
   dir: string;
+  openDrawer: boolean;
 }
 //initailState
 const initialState: InitialState = {
@@ -45,7 +46,8 @@ const initialState: InitialState = {
   showModal: false,
   updatedPost: { id: 1, userId: 1, title: '', body: '' },
   authInfo: { name: '', email: '' },
-  dir: document.documentElement.dir
+  dir: document.documentElement.dir,
+  openDrawer: false
 };
 
 //create context
