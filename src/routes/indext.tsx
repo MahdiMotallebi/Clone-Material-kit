@@ -14,7 +14,11 @@ import User from '../pages/user';
 const AppRoutes = () => {
   return (
     <Routes>
-      <Route path="dashboard" element={<DashboardLayout />}>
+      <Route path="/dashboard" element={<DashboardLayout />}>
+        <Route
+          element={<Navigate to="dashboard/dashboardPage" />}
+          index={true}
+        />
         <Route path="dashboardPage" element={<DashboardPage />} />
         <Route path="user" element={<User />} />
         <Route path="products" element={<Products />} />
@@ -22,16 +26,15 @@ const AppRoutes = () => {
       </Route>
 
       <Route element={<OtherLayout />}>
+        <Route
+          element={<Navigate to="dashboard/dashboardPage" />}
+          index={true}
+        />
         <Route path="404" element={<Page404 />} />
       </Route>
 
-      <Route
-        path="/"
-        element={<Navigate to="dashboard/dashboardPage" />}
-        index={true}
-      />
-      <Route path="*" element={<Navigate to="/404" />} />
       <Route path="login" element={<Login />} />
+      <Route path="*" element={<Navigate to="/404" />} />
     </Routes>
   );
 };

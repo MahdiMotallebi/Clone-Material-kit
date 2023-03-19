@@ -90,7 +90,7 @@ export const tokens = (mode: PaletteMode) => ({
           400: '#b2b2b2',
           500: '#dedede',
           600: '#e5e5e5',
-          700: '#ebebeb',
+          700: '#f9fafc', //change
           800: '#f2f2f2',
           900: '#fff' // change
         },
@@ -207,7 +207,7 @@ export const customeTheme = (mode: PaletteMode) => {
               paper: colors.grey[900]
             },
             text: {
-              primary: colors.grey[200],
+              primary: colors.grey[100],
               secondary: colors.grey[400],
               disabled: colors.grey[800]
             }

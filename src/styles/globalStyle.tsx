@@ -16,8 +16,7 @@ export const GlobalStyle = () => {
             fontSize: '10px',
             overflowX: 'hidden',
             width: '100%',
-            height: '100vh',
-            fontFamily: 'Titillium Web,sans-serif'
+            height: '100vh'
           },
 
           'ul, ol': {
@@ -34,6 +33,9 @@ export const GlobalStyle = () => {
           },
           textarea: {
             whiteSpace: 'revert'
+          },
+          a: {
+            textDecoration: 'none'
           },
 
           //Scroll
