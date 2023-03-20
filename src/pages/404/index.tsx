@@ -13,15 +13,18 @@ const Page404 = () => {
 
       <Stack
         alignItems="center"
-        gap="4rem"
+        gap="2rem"
         justifyContent="center"
         sx={{ height: '100%' }}
+        mt={10}
       >
         <Stack alignItems="center">
           <Typography
             variant="subtitle2"
             sx={{
               fontSize: '1.8rem',
+              lineHeight: '2.6rem',
+              textAlign: 'center',
               mb: '1rem',
               fontWeight: '700',
               '&::first-letter': {
@@ -37,7 +40,7 @@ const Page404 = () => {
             sx={{
               fontSize: '1rem',
               fontWeight: '300',
-              width: '50%',
+              width: { md: '50%' },
               textAlign: 'center',
               '&::first-letter': {
                 textTransform: 'capitalize'
@@ -52,7 +55,7 @@ const Page404 = () => {
         </Stack>
         <Box
           component="img"
-          height="250px"
+          sx={{ height: { xs: '120px', sm: '200px', md: '250px' } }}
           src="assets/illustrations/illustration_404.svg"
           alt="page-not-found"
         />
