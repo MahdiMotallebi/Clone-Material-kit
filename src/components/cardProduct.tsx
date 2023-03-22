@@ -13,12 +13,17 @@ import {
 } from '@mui/material';
 
 //types
-import { CardProductProps } from '../types/types';
+import { IndexProps } from '../types/types';
 
-const CardProduct = ({ index }: CardProductProps) => {
+const CardProduct = ({ index }: IndexProps) => {
   const theme = useTheme();
   return (
-    <Card>
+    <Card
+      sx={{
+        boxShadow: `${theme.palette.shadow}`,
+        borderRadius: '15px'
+      }}
+    >
       <CardMedia
         image={`/assets/images/products/product_${index + 1}.jpg`}
         title="shoe"

@@ -1,11 +1,11 @@
 import React from 'react';
 import { PaletteMode } from '@mui/material';
 import { createTheme } from '@mui/material/styles';
-import { useGlobalContext } from '../context';
 
 declare module '@mui/material/styles/createPalette' {
   interface Palette {
     border: PaletteColor;
+    shadow: string;
   }
   interface PaletteOptions {
     border: PaletteColor;
@@ -169,6 +169,7 @@ export const customeTheme = (mode: PaletteMode) => {
         xl: 1300
       }
     },
+
     palette: {
       mode: mode,
       colors,
@@ -178,6 +179,8 @@ export const customeTheme = (mode: PaletteMode) => {
           dark: 'rgba(133, 133, 133, .1)'
         }
       }),
+      shadow:
+        ' rgb(145 158 171 / 20%) 0px 0px 2px 0px, rgb(145 158 171 / 12%) 0px 12px 24px -4px',
 
       ...(mode === 'dark'
         ? {

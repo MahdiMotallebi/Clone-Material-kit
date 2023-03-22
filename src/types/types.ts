@@ -2,6 +2,6 @@ export interface ChartTitleProps {
   title: String;
 }
 
-export interface CardProductProps {
+export interface IndexProps {
   index: number;
 }
