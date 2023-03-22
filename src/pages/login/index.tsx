@@ -56,7 +56,7 @@ const Login = () => {
           sx={{
             boxShadow: '1px 0 10px #ddd',
             flex: '1',
-            display: { xs: 'none', md: 'flex' }
+            display: { xs: 'none', lg: 'flex' }
           }}
           justifyContent="center"
         >
@@ -66,7 +66,7 @@ const Login = () => {
               fontWeight: '700',
               textTransform: 'capitalize',
               fontSize: '2rem',
-              paddingTop: '2rem'
+              paddingTop: '4rem'
             }}
             px={4}
           >
@@ -90,7 +90,11 @@ const Login = () => {
           }}
         >
           <Stack
-            sx={{ width: { xs: '100%', lg: '60%' }, margin: '0 auto' }}
+            sx={{
+              width: { xs: '100%', sm: '70%' },
+              margin: '0 auto',
+              marginTop: '4rem'
+            }}
             spacing={3}
           >
             <Box mb={3}>
