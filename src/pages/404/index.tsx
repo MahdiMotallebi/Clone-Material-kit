@@ -40,7 +40,7 @@ const Page404 = () => {
             sx={{
               fontSize: '1rem',
               fontWeight: '300',
-              width: { md: '50%' },
+              width: { sm: '50%' },
               textAlign: 'center',
               '&::first-letter': {
                 textTransform: 'capitalize'
@@ -55,7 +55,7 @@ const Page404 = () => {
         </Stack>
         <Box
           component="img"
-          sx={{ height: { xs: '120px', sm: '200px', md: '250px' } }}
+          sx={{ height: { xs: '120px', sm: '210px', md: '250px' } }}
           src="assets/illustrations/illustration_404.svg"
           alt="page-not-found"
         />
